@@ -7,6 +7,7 @@ const comments = (count: number, { articleId }): Comment[] =>
     content: faker.lorem.paragraph(3),
     flagged: faker.datatype.boolean(),
     article: articleId,
+    image: [faker.image.imageUrl()],
     createdAt: new Date(),
     updatedAt: new Date(),
   }));

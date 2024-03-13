@@ -6,19 +6,27 @@ export enum Gender {
 }
 
 export interface User {
-  firstName: string;
-  lastName: string;
-  gender: Gender;
+  image: string;
+  username: string;
+  password: string;
   email: string;
-  isMyFavourite: boolean;
+  fullName: string;
+  address: string;
+  phoneNumber: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const UserSchema = new Schema<User>({
-  firstName: { type: 'String', required: true },
-  lastName: { type: 'String', required: true },
-  gender: { type: 'String', required: true, enum: Gender },
-  email: { type: 'String', required: true },
-  isMyFavourite: { type: 'Boolean', required: true },
+  image: { type: 'String' },
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  fullName: { type: String, required: true },
+  address: { type: String, required: false },
+  phoneNumber: { type: String, required: false },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 export const UserModel = model<User>('User', UserSchema);

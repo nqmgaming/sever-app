@@ -35,6 +35,15 @@ const run = async () => {
       ),
     ),
   );
+
+  const createCategories: Record<string, any>[] = flatten(
+    await Promise.all(
+      createdUsers.map((u) =>
+        Promise.all(categories(categoriesPerUserCount, { userId: u._id }).map((c) => new CategoryModel(c).save())),
+      ),
+    ),
+  );
+
   await Promise.all(
     createdArticles.map((a) =>
       Promise.all(comments(commentsPerArticleCount, { articleId: a._id }).map((c) => new CommentModel(c).save())),

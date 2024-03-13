@@ -43,5 +43,4 @@ const start = async () => {
     console.log(`AdminJS is under http://localhost:${process.env.PORT}`);
   });
 };
-
 start();

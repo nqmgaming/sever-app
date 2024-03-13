@@ -1,21 +1,18 @@
 import { model, Schema, Types } from 'mongoose';
 
 export interface Category {
-  title: string;
-  owner: Types.ObjectId;
-  nested: {
-    field: string;
-    value: string;
-  };
+  name: string;
+  description: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export const CategorySchema = new Schema<Category>(
   {
-    title: { type: 'String', required: true },
-    owner: { type: Schema.Types.ObjectId, ref: 'User' },
-    nested: new Schema({ field: 'String', value: 'String' }),
+    name: { type: 'String', required: true },
+    description: { type: 'String', required: true },
+    createdAt: { type: 'Date', default: Date.now },
+    updatedAt: { type: 'Date', default: Date.now },
   },
   { timestamps: true },
 );
