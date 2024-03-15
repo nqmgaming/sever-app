@@ -28,7 +28,7 @@ userAPI.post('/signup', async (req, res) => {
     if (!result) {
       throw new Error('Error saving user');
     } else {
-      res.json(result);
+      res.json(userData);
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
