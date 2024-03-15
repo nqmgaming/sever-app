@@ -26,6 +26,7 @@ const attachAdminJS = async (app: Express) => {
   await createAuthUsers();
 };
 
+
 const start = async () => {
   const app = express();
   app.enable('trust proxy');
