@@ -4,6 +4,8 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import AdminJS from 'adminjs';
 import * as url from 'url';
+import router from '../../admin/config/config.js';
+import userAPI from '../../admin/config/controllers/user.controller.js';
 
 import { createAuthUsers, generateAdminJSConfig } from '../../admin/index.js';
 import { expressAuthenticatedRouter } from '../../admin/router.js';
@@ -20,6 +22,8 @@ const attachAdminJS = async (app: Express) => {
   const adminRouter = expressAuthenticatedRouter(adminJS);
 
   app.use(adminJS.options.rootPath, adminRouter);
+  app.use('/api/v1', router);
+  app.use('/api/v1/user', userAPI);
   app.get('/', (req, res) => res.redirect(adminJS.options.rootPath));
   app.use(express.static(path.join(__dirname, '../../../public')));
 

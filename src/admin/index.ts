@@ -42,7 +42,7 @@ export const generateAdminJSConfig: () => AdminJSOptions = () => ({
   defaultTheme: 'light',
   availableThemes: [light, dark, noSidebar, customTheme],
   resources: [
-    // mongo
+    // mongoose
     CreateAdminResource(),
     CreateUserResource(),
     CreateProductResource(),

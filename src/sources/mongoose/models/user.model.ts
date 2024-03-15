@@ -1,16 +1,12 @@
 import { model, Schema } from 'mongoose';
 
-export enum Gender {
-  Male = 'male',
-  Female = 'female',
-}
-
 export interface User {
   image: string;
-  username: string;
   password: string;
   email: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
+  birthDate: Date;
   address: string;
   phoneNumber: string;
   createdAt: Date;
@@ -19,10 +15,11 @@ export interface User {
 
 export const UserSchema = new Schema<User>({
   image: { type: 'String' },
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  fullName: { type: String, required: true },
+  password: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  birthDate: { type: Date, required: true },
   address: { type: String, required: false },
   phoneNumber: { type: String, required: false },
   createdAt: { type: Date, default: Date.now },
@@ -30,3 +27,5 @@ export const UserSchema = new Schema<User>({
 });
 
 export const UserModel = model<User>('User', UserSchema);
+
+
