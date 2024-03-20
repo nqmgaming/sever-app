@@ -1,4 +1,3 @@
-import { Type } from '@mikro-orm/core';
 import { model, Schema, Types } from 'mongoose';
 
 export interface Product {
