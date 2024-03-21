@@ -40,7 +40,7 @@ router.post('/signin', async (req, res) => {
     }
 
     // Tạo và trả về access token cho người dùng
-    const accessToken = jwt.sign({userId: user._id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'});
+    const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
     res.json({ accessToken });
 
 
@@ -52,7 +52,7 @@ router.post('/signin', async (req, res) => {
 //sign up
 router.post('/signup', async (req, res) => {
   try {
-    const { email, password,image, firstName, lastName, birthDate, address, phoneNumber } = req.body;
+    const { email, password, image, firstName, lastName, birthDate, address, phoneNumber } = req.body;
 
     // Check if the email already exists in the database
     const existingUser = await Users.findOne({ email });
