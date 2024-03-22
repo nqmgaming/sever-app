@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/controller/user.controller');
 const productRouter = require('./routes/controller/product.controller');
 const categoryRouter = require('./routes/controller/category.controller');
+const CartRouter = require('./routes/controller/cart.controller');
 const database = require('./config/db');
 
 const app = express();
@@ -26,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/api/v1/user/', usersRouter);
 app.use('/api/v1/product/', productRouter);
 app.use('/api/v1/category/', categoryRouter);
+app.use('/api/v1/cart/', CartRouter);
 database().then(() => {
   console.log('Connected to the database');
   //log link
@@ -36,12 +38,12 @@ database().then(() => {
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
