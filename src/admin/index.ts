@@ -12,6 +12,8 @@ import {
   CreateProductResource,
   CreateCartResource,
   CreateOrderResource,
+  FavoriteResource,
+  CreateSizeResource,
 } from '../sources/mongoose/resources/index.js';
 import './components.bundler.js';
 import { AuthUsers } from './constants/authUsers.js';
@@ -49,6 +51,8 @@ export const generateAdminJSConfig: () => AdminJSOptions = () => ({
     CreateCategoryResource(),
     CreateCartResource(),
     CreateOrderResource(),
+    FavoriteResource(),
+    CreateSizeResource(),
   ],
 });
 

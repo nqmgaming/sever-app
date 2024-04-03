@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Products = require('../../models/product.model');
 
+
 // get all products
 router.get('/get-all', async (req, res) => {
   try {
     const products = await Products
       .find()
-      .populate('category');
+      .populate('category')
+      .populate('size');
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -19,7 +21,8 @@ router.get('/get/:id', async (req, res) => {
   try {
     const product = await Products
       .findById(req.params.id)
-      .populate('category');
+      .populate('category')
+      .populate('size');
     res.json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
