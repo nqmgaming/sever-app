@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+const multer = require('../../middlewares/multer.middleware');
+const cloudinary = require("../../utils/cloudinary")
 
 const Users = require('../../models/user.model');
 
@@ -114,6 +116,72 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+//update user by id
+router.patch('/update/:id', multer.single('avatar'), async (req, res, next) => {
+  const data = req.body;
+  console.log(req.file);
+  try {
+    const user = await Users.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (req.file) {
+      const result = await cloudinary.upload(req.file.path);
+      user.image = result.secure_url;
+    }
+
+    if (data.password && data.password !== user.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(data.password, salt);
+      user.password = hashedPassword;
+    }
+
+    if (data.email && data.email !== user.email) {
+      const existingUser = await Users.findOne({ email: data.email });
+      if (existingUser) {
+        return res.status(400).json({ error: 'Email already in use' });
+      }
+      user.email = data.email;
+    }
+    if (data.firstName) {
+      user.firstName = data.firstName;
+    }
+    if (data.lastName) {
+      user.lastName = data.lastName;
+    }
+    if (data.birthDate) {
+      user.birthDate = data.birthDate;
+    }
+    if (data.address) {
+      user.address = data.address;
+    }
+    if (data.phoneNumber) {
+      user.phoneNumber = data.phoneNumber;
+    }
+
+    await user.save();
+
+    res.json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        image: user.image,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        birthDate: user.birthDate,
+        address: user.address,
+        phoneNumber: user.phoneNumber
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+    console.log(error);
+
+  }
+})
+
 
 // export router
 module.exports = router;
