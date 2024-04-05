@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
 //get order by user id
 router.get('/get-by-user/:userId', async (req, res) => {
     try {
-        const order = await Order.find({ user: req.params.userId });
+        const order = await Order.find({ user: req.params.userId }).sort({ createdAt: -1 });
         res.json(order);
     } catch (err) {
         res.status(500).json({ error: err });
