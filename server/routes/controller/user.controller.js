@@ -41,7 +41,19 @@ router.post('/signin', async (req, res) => {
 
     // Tạo và trả về access token cho người dùng
     const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
-    res.json({ accessToken });
+    res.json({
+      accessToken,
+      user: {
+        _id: user._id,
+        email: user.email,
+        image: user.image,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        birthDate: user.birthDate,
+        address: user.address,
+        phoneNumber: user.phoneNumber
+      }
+    });
 
 
   } catch (error) {
@@ -84,7 +96,19 @@ router.post('/signup', async (req, res) => {
 
     // Generate and return an access token for the user
     const accessToken = jwt.sign({ userId: newUser._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
-    res.json({ accessToken });
+    res.json({
+      accessToken,
+      user: {
+        _id: newUser._id,
+        email: newUser.email,
+        image: newUser.image,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        birthDate: newUser.birthDate,
+        address: newUser.address,
+        phoneNumber: newUser.phoneNumber
+      }
+    });
 
   } catch (error) {
     res.status(500).json({ error: error.message });

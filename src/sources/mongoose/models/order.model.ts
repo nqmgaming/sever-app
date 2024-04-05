@@ -1,10 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
 
-export enum Gender {
-  Male = 'male',
-  Female = 'female',
-}
-
 export interface Order {
   user: Types.ObjectId;
   items: [

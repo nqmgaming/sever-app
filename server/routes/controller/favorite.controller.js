@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Favorite = require('../../models/favorite.model');
-const { log } = require('console');
 
 // get all favorites
 router.get('/get-all', async (req, res) => {

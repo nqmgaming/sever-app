@@ -11,6 +11,8 @@ const categoryRouter = require('./routes/controller/category.controller');
 const CartRouter = require('./routes/controller/cart.controller');
 const SizeRouter = require('./routes/controller/size.controller');
 const FavoriteRouter = require('./routes/controller/favorite.controller');
+const DeliveryRouter = require('./routes/controller/delivery.controller');
+const OrderRouter = require('./routes/controller/order.controller');
 const database = require('./config/db');
 
 const app = express();
@@ -32,6 +34,10 @@ app.use('/api/v1/category/', categoryRouter);
 app.use('/api/v1/cart/', CartRouter);
 app.use('/api/v1/size/', SizeRouter);
 app.use('/api/v1/favorite/', FavoriteRouter);
+app.use('/api/v1/delivery/', DeliveryRouter);
+app.use('/api/v1/order/', OrderRouter);
+
+// Connect to the database
 database().then(() => {
   console.log('Connected to the database');
   //log link
