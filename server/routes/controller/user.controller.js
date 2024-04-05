@@ -128,7 +128,7 @@ router.patch('/update/:id', multer.single('avatar'), async (req, res, next) => {
     }
 
     if (req.file) {
-      const result = await cloudinary.upload(req.file.path);
+      const result = await cloudinary.uploader.upload(req.file.path);
       user.image = result.secure_url;
     }
 
